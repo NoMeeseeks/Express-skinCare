@@ -78,8 +78,13 @@ npx sequelize model:generate --name foto --attributes titulo:string,descripcion:
    ```sh
    npx sequelize db:seed:undo:all
    ```
+## Paso 6: Ejecutar la base de datos
 
-## Paso 6: Ejecutar el Servidor Express
+Para iniciar la base, ejecuta:
+```sh
+docker-compose up -d
+```
+## Paso 7: Ejecutar el Servidor Express
 
 Para iniciar el servidor, ejecuta:
 ```sh
