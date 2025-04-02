@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     image_url: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
-    skincare_type: DataTypes.ARRAY(DataTypes.STRING),
+    skincare_type: DataTypes.STRING,
     expiration_date: DataTypes.DATE
   }, {
     sequelize,
