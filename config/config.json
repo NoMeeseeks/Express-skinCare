@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "admin",
+    "password": 1234,
+    "database": "skinCare",
+    "host": "db",
     "dialect": "postgres",
     "ssl": true
   },

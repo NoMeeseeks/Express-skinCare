@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 500mb
+    environment:
+      POSTGRES_USER: admin        # Nombre de usuario personalizado
+      POSTGRES_PASSWORD: 1234 # Contraseña para el usuario
+      POSTGRES_DB: skinCare     # Base de datos que se creará por defecto
+    ports:
+      - "5584:5584"  # Mapea el puerto 5584 del contenedor al puerto 5584 de tu máquina local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistir datos en un volumen
+
+volumes:
+  postgres_data:
+    driver: local
