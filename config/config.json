@@ -1,11 +1,12 @@
 {
   "development": {
     "username": "admin",
-    "password": 1234,
+    "password": "admin",
     "database": "skinCare",
-    "host": "db",
+    "host": "localhost",
+    "port": 5584,
     "dialect": "postgres",
-    "ssl": true
+    "ssl": false
   },
   "test": {
     "username": "root",
