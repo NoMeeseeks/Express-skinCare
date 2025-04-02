@@ -1,12 +1,11 @@
 {
   "development": {
-    "username": "admin",
-    "password": "admin",
-    "database": "skinCare",
-    "host": "localhost",
-    "port": 5584,
-    "dialect": "postgres",
-    "ssl": false
+    "username": "root",
+    "password": "1234",
+    "database": "skincare",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "ssl": true
   },
   "test": {
     "username": "root",
