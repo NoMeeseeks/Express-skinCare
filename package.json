@@ -6,9 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@sequelize/mariadb": "^7.0.0-alpha.46",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "^4.21.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pg": "^8.14.1",

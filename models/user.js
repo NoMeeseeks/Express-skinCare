@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       user.belongsToMany(models.product,{
         through: 'shopping_cart',
         foreignKey: 'id_user',
-      })
+        as : 'products' //agregue m
+      });
+      //relacion directa con shopping_cart agregue m
+      user.hasMany(models.shopping_cart, {
+        foreignKey: 'id_user',
+        as: 'shoppingCarts'
+      });
     }
   }
   user.init({

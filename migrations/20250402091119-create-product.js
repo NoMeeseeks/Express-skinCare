@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       skincare_type: {
-        type: Sequelize.ARRAY(DataTypes.STRING)
+        type: Sequelize.STRING
       },
       expiration_date: {
         type: Sequelize.DATE
