@@ -2,26 +2,26 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class shopping_cart extends Model {
+  class DetailBill extends Model {
     static associate(models) {
-      shopping_cart.belongsTo(models.user, {
-        foreignKey: 'id_user',
-        as: 'user'
+      DetailBill.belongsTo(models.bill, {
+        foreignKey: 'id_bill',
+        as: 'bill'
       });
       
-      shopping_cart.belongsTo(models.product, {
+      DetailBill.belongsTo(models.product, {
         foreignKey: 'id_product',
         as: 'product'
       });
     }
   }
 
-  shopping_cart.init({
-    id_user: {
+  DetailBill.init({
+    id_bill: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'user',  // Matches the table name
+        model: 'bill',
         key: 'id'
       }
     },
@@ -33,22 +33,25 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    price: {
-      type: DataTypes.FLOAT,
-      allowNull: false  // Price at time of adding to cart
-    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        min: 1  // At least 1 item
+        min: 1
+      }
+    },
+    unit_price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        min: 0
       }
     }
   }, {
     sequelize,
-    modelName: 'shopping_cart',
-    tableName: 'shopping_cart'
+    modelName: 'detailbill',
+    tableName: 'detail_bill' // Explicit table name to match your image
   });
 
-  return shopping_cart;
+  return DetailBill;
 };

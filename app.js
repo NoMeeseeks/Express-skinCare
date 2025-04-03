@@ -3,48 +3,38 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors'); // 1. Require CORS
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const productRoutes = require('./routes/products'); // Importa el router de productos
 const shoppingCartRoutes = require('./routes/shoppingCart'); // Importa las rutas del carrito
 
-var app = express();
+var app = express(); // 2. Create app first
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
+// 3. ENABLE CORS FOR ALL ROUTES (most permissive)
+app.use(cors()); // That's it! No config needed
+
+// Rest of your middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/billing', require('./routes/billing'));
 app.use('/api/products', productRoutes); 
 app.use('/api/shopping-cart', shoppingCartRoutes); 
-// catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
-// error handler
 app.use(function(err, req, res, next) {
-  // Set error status and send JSON response
   res.status(err.status || 500);
-  res.json({
-    error: {
-      message: err.message,
-      status: err.status || 500
-    }
-  });
+  res.json({ error: err.message });
 });
 
 module.exports = app;

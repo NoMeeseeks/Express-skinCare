@@ -2,29 +2,47 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class user extends Model {
+  class User extends Model {
     static associate(models) {
-      user.hasMany(models.shopping_cart, {
+      User.belongsToMany(models.product, {
+        through: models.shopping_cart, // Reference the model directly
+        foreignKey: 'id_user',
+        as: 'products'
+      });
+      
+      User.hasMany(models.shopping_cart, {
         foreignKey: 'id_user',
         as: 'shoppingCarts'
       });
     }
   }
 
-  user.init(
-    {
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      confirm_password: DataTypes.STRING,
-      birthday: DataTypes.DATE
+  User.init({
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    {
-      sequelize,
-      modelName: 'user',
-      tableName: 'users'
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    birthday: {
+      type: DataTypes.DATE,
+      allowNull: true // Optional field
     }
-  );
+  }, {
+    sequelize,
+    modelName: 'user',
+    tableName: 'user' // Match migration table name
+  });
 
-  return user;
+  return User;
 };
