@@ -1,11 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "1234",
+    "password": "pitusa20",
     "database": "skincare",
     "host": "127.0.0.1",
     "dialect": "mariadb",
-    "ssl": true
+    "ssl": true,
+    "dialectOptions": {
+    "allowPublicKeyRetrieval": true
+  }
   },
   "test": {
     "username": "root",
