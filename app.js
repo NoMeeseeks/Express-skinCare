@@ -3,40 +3,32 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors'); // 1. Require CORS
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var app = express(); // 2. Create app first
 
-var app = express();
+// 3. ENABLE CORS FOR ALL ROUTES (most permissive)
+app.use(cors()); // That's it! No config needed
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
+// Rest of your middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
 
-// catch 404 and forward to error handler
+// Error handlers (keep your existing ones)
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
-  // Set error status and send JSON response
   res.status(err.status || 500);
-  res.json({
-    error: {
-      message: err.message,
-      status: err.status || 500
-    }
-  });
+  res.json({ error: err.message });
 });
 
 module.exports = app;
