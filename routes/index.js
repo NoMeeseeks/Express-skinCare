@@ -10,7 +10,14 @@ router.get('/test', function(req, res, next) {
   res.json({
     message: 'Test route'
   });
-}
-);
+});
+
+//agregue m
+const productRoutes = require('./products'); 
+router.use('/products', productRoutes); 
+
+const shoppingCartRoutes = require('./shoppingCart'); 
+router.use('/shopping-cart', shoppingCartRoutes); 
+
 
 module.exports = router;
