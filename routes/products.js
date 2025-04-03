@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { product } = require('../models'); // Importa el modelo de producto
 
-// Obtener todos los productos
+//todos los productos
 router.get('/', async (req, res) => {
   try {
     const products = await product.findAll();
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Obtener un producto por ID
+//un producto por id
 router.get('/:id', async (req, res) => {
   try {
     const singleProduct = await product.findByPk(req.params.id);
