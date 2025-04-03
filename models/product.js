@@ -1,43 +1,65 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class product extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Product extends Model {
     static associate(models) {
-      // define association here
-      product.belongsToMany(models.user, {
+      Product.belongsToMany(models.User, {
         through: 'shopping_cart',
         foreignKey: 'id_product',
-        as: 'users' // agregue m
+        as: 'users'
       });
-      //relacion directa con shopping_cart agregue m
-      product.hasMany(models.shopping_cart, {
+      Product.hasMany(models.shopping_cart, {
         foreignKey: 'id_product',
         as: 'shoppingCarts'
       });
     }
   }
-  product.init({
-    product_name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    brand: DataTypes.STRING,
-    price: DataTypes.FLOAT,
-    image_url: DataTypes.STRING,
-    quantity: DataTypes.INTEGER,
-    skincare_type: DataTypes.STRING,
-    expiration_date: DataTypes.DATE
+
+  Product.init({
+    product_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        min: 0  // Ensures price isn't negative
+      }
+    },
+    image_url: {
+      type: DataTypes.STRING,
+      allowNull: true  // Optional if not all products have images
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0  // Ensures quantity isn't negative
+      }
+    },
+    skincare_type: {
+      type: DataTypes.STRING,
+      allowNull: true  // Optional
+    },
+    expiration_date: {
+      type: DataTypes.DATE,
+      allowNull: true  // Optional
+    }
   }, {
     sequelize,
     modelName: 'product',
-    tableName: 'product',
-    timestamps: true,
-    
+    tableName: 'product'  // Singular table name
   });
-  return product;
+
+  return Product;
 };
